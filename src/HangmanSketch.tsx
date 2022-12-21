@@ -77,7 +77,12 @@ const LEFT_LEG = (
 ) 
 
 
-export function HangmanSketch() {
+
+type HangmanSketchProps = { 
+    numberOfGuesses: number
+}
+
+export function HangmanSketch({ numberOfGuesses }: HangmanSketchProps) {
     return <div style={{ position: "relative" }}>
         {HEAD}
         {BODY}
