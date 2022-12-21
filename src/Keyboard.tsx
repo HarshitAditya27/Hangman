@@ -40,7 +40,7 @@ export function Keyboard({
   activeLetters, 
   disabled=false,
   inactiveLetters, 
-  addGuessedLetter
+  addGuessedLetter,
 }: KeyboardProps) {
   return (
     <div
@@ -50,12 +50,12 @@ export function Keyboard({
         gap: ".5rem",
       }}
     >
-      {KEYS.map((key) => {
+      {KEYS.map(key => { 
+        const isActive = activeLetters.includes(key) 
+        const isInactive = inactiveLetters.includes(key)
         return (<button 
         onClick={() => addGuessedLetter(key)}
-          className={`${styles.btn} ${isActive?styles.active:""} ${isActive? styles.active:""} ${
-            isInactive?styles.inactive:""
-          }`}   
+          className={`${styles.btn} ${isActive?styles.active:""} ${isInactive? styles.isInactive:""}`}   
           disabled={isInactive|| isActive || disabled}
         key={key}> 
         {key}

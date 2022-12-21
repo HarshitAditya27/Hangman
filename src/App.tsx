@@ -1,8 +1,7 @@
-import React, { useCallback, useEffect } from 'react'
-import { useState } from 'react';
-import HangmanSketch from './HangmanSketch';
-import HangmanWord from './HangmanWord';
-import Keyboard from './Keyboard';
+import React, { useCallback, useEffect, useState } from 'react'
+import { HangmanSketch } from './HangmanSketch';
+import { HangmanWord } from './HangmanWord';
+import { Keyboard } from './Keyboard';
 import words from './wordList.json'
 
 function getWord() {
@@ -11,18 +10,22 @@ function getWord() {
 
 function App() {
   const [wordToGuess, setWordToGuess] = useState(getWord)
-
   const [guessedLetters, setGuessedLetters] = useState<string[]>([])
 
-  const inCorrectLetters = guessedLetters.filter(letter => !wordToGuess.includes(letter)) 
+  const inCorrectLetters = guessedLetters.filter(
+    letter => !wordToGuess.includes(letter)
+  )
 
-  cosnt isLoser = inCorrectLetters.length >= 6 
-  cosnt isWinner = wordToGuess.split("").every(letter => guessedLetters.includes(letter))
+  const isLoser = inCorrectLetters.length >= 6
+  const isWinner = wordToGuess
+    .split("")
+    .every(letter => guessedLetters.includes(letter))
 
-  const addGuessedLetter = useCallback((letter: string) => {
-    if (guessedLetters.includes(letter) || isLoser || isWinner) return
-    setGuessedLetters(currentLetters => [...currentLetters, letter])
-  }, [guessedLetters, isWinner, isLoser]
+  const addGuessedLetter = useCallback(
+    (letter: string) => {
+      if (guessedLetters.includes(letter) || isLoser || isWinner) return
+      setGuessedLetters(currentLetters => [...currentLetters, letter])
+    }, [guessedLetters, isWinner, isLoser]
   )
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
@@ -41,7 +44,7 @@ function App() {
     const handler = (e: KeyboardEvent) => {
       const key = e.key
       if (key !== "Enter") return
-      e.preventDefault() 
+      e.preventDefault()
       setGuessedLetters([])
       setWordToGuess(getWord())
     }
@@ -60,7 +63,7 @@ function App() {
         flexDirection: "column",
         gap: "2rem",
         margin: "0 auto",
-        alignItems: "center"
+        alignItems: "center",
       }}
     >
       <div style={{ fontSize: "2rem", textAlign: "center" }}>
